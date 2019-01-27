@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-package "letsencrypt" do
+package node['certbot']['package'] do
   action :install
 end
 
