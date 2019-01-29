@@ -7,4 +7,5 @@ when 'arch'
 when 'ubuntu'
   'letsencrypt'
 end
-default['certbot']['executable'] = "/usr/bin/#{node['certbot']['package']}"
+default['certbot']['executable']    = "/usr/bin/#{node['certbot']['package']}"
+default['certbot']['authenticator'] = :webroot

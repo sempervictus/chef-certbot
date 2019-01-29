@@ -26,3 +26,7 @@ attribute :test,
 attribute :allow_fail,
           kind_of: [TrueClass, FalseClass],
           default: false
+
+attribute :authenticator,
+          kind_of: Symbol,
+          default: :webroot

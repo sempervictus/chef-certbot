@@ -10,7 +10,7 @@ action :create do
     recursive true
   end
 
-  cert_command = "#{base_command} #{domain_arg} #{webroot_arg} #{renew_arg} #{test_arg} #{rsa_size_arg}"
+  cert_command = "#{base_command} #{domain_arg} #{auth_arg} #{renew_arg} #{test_arg} #{rsa_size_arg}"
 
   certificate_request = "#{cert_command} --email #{new_resource.email} --agree-tos"
   if new_resource.allow_fail
@@ -63,7 +63,7 @@ def domain_arg
 end
 
 def base_command
-  "#{node[:certbot][:executable]} certonly --non-interactive"
+  "#{node['certbot']['executable']} certonly --non-interactive"
 end
 
 def webroot_dir
@@ -72,4 +72,15 @@ end
 
 def well_known_dir
   "#{webroot_dir}/.well-known"
+end
+
+def auth_arg
+  case node['certbot']['authenticator']
+  when :webroot
+    webroot_arg
+  when :apache
+    '--apache'
+  when :nginx
+    '--nginx'
+  end
 end
